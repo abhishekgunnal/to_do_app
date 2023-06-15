@@ -18,7 +18,7 @@ class TaskViewModel(private val repository: TaskRepository) : ViewModel() {
     val taskList: LiveData<TaskResult<List<Task>>> = _taskList
 
     fun insertTask(title: String, description: String) {
-        val pattern = Regex("^[a-zA-Z]+$")
+        val pattern = Regex("^[a-zA-Z ]+$")
         if (title.isEmpty()) {
             _taskResult.postValue(TaskResult.Error("Please Enter Title"))
             return
