@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">To Do App</string>
+    <string name="enter_task_title">Enter Task Title</string>
+    <string name="enter_description_option">Enter Description (Option)</string>
+    <string name="create_task">Create Task</string>
+    <string name="task_title">task title</string>
+    <string name="pending">Pending</string>
+    <string name="completed">Completed</string>
+    <string name="status">status</string>
+</resources>
