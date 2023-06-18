@@ -10,14 +10,17 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvTaskList"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingBottom="100dp"
+        />
 
     <TextView
         android:id="@+id/tvNoTask"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/dim_white"
-        android:text="No Tasks Added"
+        android:text="@string/no_tasks_added"
         android:textSize="18sp"
         android:fontFamily="sans-serif-condensed-medium"
         app:layout_constraintTop_toTopOf="parent"

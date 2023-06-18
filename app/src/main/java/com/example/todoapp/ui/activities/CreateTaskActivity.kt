@@ -7,9 +7,9 @@ import android.os.Bundle
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import com.example.todoapp.data.TaskResult
-import com.example.todoapp.database.TaskDatabase
+import com.example.todoapp.data.database.TaskDatabase
 import com.example.todoapp.databinding.ActivityCreateTaskBinding
-import com.example.todoapp.repository.TaskRepository
+import com.example.todoapp.data.repository.TaskRepository
 import com.example.todoapp.viewmodel.TaskViewModel
 import com.example.todoapp.viewmodel.TaskViewModelFactory
 
@@ -55,9 +55,9 @@ class CreateTaskActivity : AppCompatActivity() {
             when (result) {
                 is TaskResult.Success -> {
                     // Handle successful result
-                    val task = result.data
+                    val message = result.data
                     // Perform necessary actions with the task
-                    Toast.makeText(mContext, "Task Created Successfully", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show()
                     setResult(Activity.RESULT_OK)
                     finish()
                 }

@@ -7,4 +7,5 @@
     <string name="pending">Pending</string>
     <string name="completed">Completed</string>
     <string name="status">status</string>
+    <string name="no_tasks_added">No Tasks Added</string>
 </resources>

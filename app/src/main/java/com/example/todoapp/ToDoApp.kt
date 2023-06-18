@@ -2,7 +2,7 @@ package com.example.todoapp
 
 import android.app.Application
 import androidx.room.Room
-import com.example.todoapp.database.TaskDatabase
+import com.example.todoapp.data.database.TaskDatabase
 
 class ToDoApp : Application() {
     companion object {

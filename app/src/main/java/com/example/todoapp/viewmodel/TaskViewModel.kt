@@ -4,25 +4,25 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.todoapp.data.Task
+import com.example.todoapp.data.database.Task
 import com.example.todoapp.data.TaskResult
-import com.example.todoapp.repository.TaskRepository
+import com.example.todoapp.data.repository.TaskRepository
+import com.example.todoapp.utils.Constants
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
 class TaskViewModel(private val repository: TaskRepository) : ViewModel() {
-    private val _taskResult = MutableLiveData<TaskResult<Task>>()
-    val taskResult: LiveData<TaskResult<Task>> = _taskResult
+    private val _taskResult = MutableLiveData<TaskResult<String>>()
+    val taskResult: LiveData<TaskResult<String>> = _taskResult
 
     private val _taskList = MutableLiveData<TaskResult<List<Task>>>()
     val taskList: LiveData<TaskResult<List<Task>>> = _taskList
 
     fun insertTask(title: String, description: String) {
-        val pattern = Regex("^[a-zA-Z ]+$")
         if (title.isEmpty()) {
             _taskResult.postValue(TaskResult.Error("Please Enter Title"))
             return
-        } else if (!pattern.matches(title)) {
+        } else if (!Constants.TITLE_PATTERN.matches(title)) {
             _taskResult.postValue(TaskResult.Error("Please Enter Characters Only"))
             return
         }
@@ -30,7 +30,7 @@ class TaskViewModel(private val repository: TaskRepository) : ViewModel() {
         viewModelScope.launch (Dispatchers.IO){
             try {
                 repository.insert(task)
-                _taskResult.postValue(TaskResult.Success(task))
+                _taskResult.postValue(TaskResult.Success("Task Created Successfully"))
             } catch (e: Exception) {
                 _taskResult.postValue(TaskResult.Error(e.message ?: "Unknown error occurred"))
             }
@@ -54,9 +54,12 @@ class TaskViewModel(private val repository: TaskRepository) : ViewModel() {
                 val existingTask = repository.getTaskById(task.id)
                 if (existingTask != null) {
                     val updatedTask = existingTask.copy(isCompleted = isCompleted)
-
                     repository.update(updatedTask)
-                    _taskResult.postValue(TaskResult.Success(updatedTask))
+                    if(isCompleted){
+                        _taskResult.postValue(TaskResult.Success("Task Marked As Completed"))
+                    }else{
+                        _taskResult.postValue(TaskResult.Success("Task Marked As Pending"))
+                    }
                 } else {
                     _taskResult.postValue(TaskResult.Error("Task not found"))
                 }
@@ -66,19 +69,16 @@ class TaskViewModel(private val repository: TaskRepository) : ViewModel() {
         }
     }
 
-
-
     fun deleteTask(task: Task) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 repository.deleteTaskById(task.id)
-                _taskResult.postValue(TaskResult.Success(task))
+                _taskResult.postValue(TaskResult.Success("Task Deleted Successfully"))
             } catch (e: Exception) {
                 _taskResult.postValue(TaskResult.Error(e.message ?: "Unknown error occurred"))
             }
         }
     }
-
 }
 
 

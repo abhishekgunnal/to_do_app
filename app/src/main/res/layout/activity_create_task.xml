@@ -19,7 +19,6 @@
         android:maxLines="1"
         android:textColor="@color/white"
         android:textSize="18sp"
-        android:textStyle="bold"
         android:fontFamily="sans-serif-condensed-medium"
         android:background="@drawable/edittext_bg"
         android:textColorHint="@color/dim_white"

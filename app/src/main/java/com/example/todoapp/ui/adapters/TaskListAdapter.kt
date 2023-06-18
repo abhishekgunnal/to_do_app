@@ -3,7 +3,7 @@ package com.example.todoapp.ui.adapters
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.todoapp.data.Task
+import com.example.todoapp.data.database.Task
 import com.example.todoapp.databinding.ItemTaskListBinding
 import com.example.todoapp.ui.interfaces.OnItemClickListener
 import com.example.todoapp.utils.Constants

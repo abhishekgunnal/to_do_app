@@ -11,11 +11,11 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.todoapp.data.Task
+import com.example.todoapp.data.database.Task
 import com.example.todoapp.data.TaskResult
-import com.example.todoapp.database.TaskDatabase
+import com.example.todoapp.data.database.TaskDatabase
 import com.example.todoapp.databinding.ActivityTaskListBinding
-import com.example.todoapp.repository.TaskRepository
+import com.example.todoapp.data.repository.TaskRepository
 import com.example.todoapp.ui.adapters.TaskListAdapter
 import com.example.todoapp.ui.interfaces.OnItemClickListener
 import com.example.todoapp.utils.Constants
@@ -100,9 +100,10 @@ class TaskListActivity : AppCompatActivity(), OnItemClickListener {
             try {
                 when (it) {
                     is TaskResult.Success -> {
-
+                        // Handle successful result
+                        val message = it.data
                         callAllTask()
-                        Toast.makeText(mContext, "Status Changed Successfully", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(mContext, message, Toast.LENGTH_SHORT).show()
                     }
                     is TaskResult.Error -> {
                         val errorMessage = it.message
